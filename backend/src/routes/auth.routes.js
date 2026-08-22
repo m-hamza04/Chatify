@@ -1,5 +1,6 @@
 import express from 'express';
-import { signUp, login, logout } from '../controllers/auth.controller';
+import { signUp, login, logout, updateProfile } from '../controllers/auth.controller';
+import { authentification } from '../../middleware/authentication';
 
 const router = express.Router();
 
@@ -7,5 +8,5 @@ const router = express.Router();
 router.get('/login', login);
 router.post('/signup', signUp);
 router.post('/logout', logout);
-
+router.patch('/update-profile', authentification, updateProfile);
 export default router;
