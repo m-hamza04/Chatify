@@ -5,6 +5,7 @@ import authRouter from './routes/auth.routes.js';
 import messagesRouter from './routes/messages.routes.js';
 import { connection } from '../lib/db.js';
 import dns from 'dns';
+import cookieParser from 'cookie-parse';
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 dotenv.config();
@@ -14,6 +15,7 @@ const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
 app.use('/api/messages', messagesRouter);
