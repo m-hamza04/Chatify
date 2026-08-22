@@ -84,6 +84,11 @@ export const login = async (req, res) => {
             profilePic: user.profilePic
         });
     } catch (error) {
-        return res.status(400).json('User Not Found');
+        res.status(400).json('User Not Found');
     }
+};
+
+export const logout = async (_, res) => {
+    res.cookies("jwt", "", { maxAge: 0 });
+    res.status(200).json("Logout Successfully");
 }
