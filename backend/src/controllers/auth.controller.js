@@ -3,6 +3,7 @@ import { generateToken } from "../../lib/utils.js";
 import bcrypt, { hash } from 'bcryptjs';
 import { sendWelcomeEmail } from "../../email/emailHandler.js";
 import dotenv from 'dotenv';
+import cloudinary from "../../lib/cloudinary.js";
 dotenv.config();
 
 export const signUp = async (req, res) => {
@@ -94,5 +95,18 @@ export const logout = async (_, res) => {
 }
 
 export const updateProfile = async (req, res) => {
+    try {
+        const profilePic = req.body;
+        if (!profilePic) {
+            return res.status(400).json('Profile Pic is Required');
+        }
+        const userId = req.user._id;
+        const uploadRespone = await cloudinary.uploader.upload(profilePic);
+        const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: uploadRespone.secure_url }, { new: true });
 
+        res.status(200).json(updatedUser);
+    } catch (errro) {
+        console.log('Error in Updating Image');
+        return res.status(400).json('Internal Server Error');
+    }
 }
