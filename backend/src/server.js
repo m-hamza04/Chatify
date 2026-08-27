@@ -6,6 +6,7 @@ import messagesRouter from './routes/messages.routes.js';
 import { connection } from '../lib/db.js';
 import dns from 'dns';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 dotenv.config();
@@ -16,7 +17,7 @@ const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use('/api/auth', authRouter);
 app.use('/api/messages', messagesRouter);
 

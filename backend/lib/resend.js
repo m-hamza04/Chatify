@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import { createWelcomeEmailTemplate } from '../email/emailTemplate';
+import { createWelcomeEmailTemplate } from '../email/emailTemplate.js';
 
 dotenv.config();
 

@@ -94,6 +94,10 @@ export const logout = async (_, res) => {
     res.status(200).json("Logout Successfully");
 }
 
+export const checkAuth = (req, res) => {
+    res.status(200).json(req.user);
+};
+
 export const updateProfile = async (req, res) => {
     try {
         const profilePic = req.body;
